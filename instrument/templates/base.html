@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-theme.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}"/>
+</head>
+
+
+<body>
+    <!--navbar-->
+    <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navtop">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navtop">
+
+           <ul class="nav navbar-nav navbar-right">
+               <!--<li><a href="#">New blog</a></li>-->
+               <li>
+{#                   {% if request.user.is_active %}#}
+{#                       <p class="navbar-text">{{ user.username }}/<a href="{% url 'conferance:logo' %}">Logout</a> </p>#}
+{#                   {% else %}#}
+{#                       <p class="navbar-text"><a href="{% url 'conferance:register' %}">Register</a>/<a href="{% url 'conferance:logi' %}">Login</a></p>#}
+{#                   {% endif %}#}
+               </li>
+           </ul>
+
+        </div>
+
+    </div>
+    </nav>
+
+    <!--消息-->
+    {% if messages %}
+        <ul class="messagelist">
+            {% for i in messages %}
+                <li>{{ i }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!--主体内容，要替代的内容-->
+    <div class="row">
+        <div class="col-sm-8 col-lg-offset-1">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+
+
+    <!-- footer -->
+    <footer class="footer" role="contentinfo">
+        <hr>
+        <div class="container">
+            <p class="text-center">Copyright © Zhenhua Liao</p>
+            <h5 class="text-center"> Thanks For Bootstrap </h5>
+        </div>
+    </footer>
+
+
+
+    <script src="{% static "jquery/jquery.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.js" %}"></script>
+    <script src="{% static "js/npm.js" %}"></script>
+</body>
+</html>
