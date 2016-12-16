@@ -3,5 +3,8 @@
 {% block title %}list{% endblock %}
 
 {% block body %}
-    <h1>list!</h1>
+    <h1>仪器列表：</h1>
+    {% for i in instruments %}
+        <h3>{{ i.name }}</h3>
+    {% endfor %}
 {% endblock %}
