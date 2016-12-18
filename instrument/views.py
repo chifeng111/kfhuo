@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from .models import Instruments, Order
-from .forms import Logi_form, Register_form
+from .forms import Logi_form, Register_form, Add_form
 
 # Create your views here.
 def index(request):
@@ -10,7 +10,7 @@ def index(request):
 
 def list(request):
     instruments = Instruments.objects.all()
-    content ={
+    content = {
         'instruments': instruments,
     }
     return render(request, 'list.html', content)
@@ -53,3 +53,26 @@ def register(request):
         'form': form
     }
     return render(request, 'register.html', content)
+
+def order(request, instrument_id):
+    instrument = get_object_or_404(Instruments, id=instrument_id)
+    order = Order.objects.filter(instrument=instrument).order_by('time')
+    content = {
+        'order': order,
+        'instrument':instrument
+    }
+    return render(request, 'order.html', content)
+
+def add(request, instrument_id):
+    form = Add_form(request.POST)
+    if form.is_valid():
+        order_ = form.save(commit=False)
+        order_.instrument = Instruments.objects.get(id=instrument_id)
+        order_.user = request.user
+        order_.save()
+        return redirect('/instrument/%s' %instrument_id)
+
+    return render(request, 'add.html', {'form': form})
+
+def delete(request):
+    pass

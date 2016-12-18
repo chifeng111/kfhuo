@@ -5,6 +5,6 @@
 {% block body %}
     <h1>仪器列表：</h1>
     {% for i in instruments %}
-        <h3>{{ i.name }}</h3>
+        <h3><a href="{% url 'instrument:order' i.id %}">{{ i.name }}</a></h3>
     {% endfor %}
 {% endblock %}

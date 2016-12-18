@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}预约详情|{{ instrument.name }}{% endblock %}
+
+{% block body %}
+    {% if order %}
+        {% for i in order %}
+            <h6>{{ i.time }}-{{ i.user }}-{{ i.instrument }}</h6>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
