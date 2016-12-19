@@ -3,9 +3,28 @@
 {% block title %}预约详情|{{ instrument.name }}{% endblock %}
 
 {% block body %}
+    <table class="table table-bordered">
+    <tr>
+        <th>时间</th>
+        <th>预约人</th>
+        <th>仪器</th>
+        <th>操作</th>
+    </tr>
     {% if order %}
         {% for i in order %}
-            <h6>{{ i.time }}-{{ i.user }}-{{ i.instrument }}</h6>
+            <tr>
+                <td>{{ i.time }}</td>
+                <td>{{ i.user }}</td>
+                <td>{{ i.instrument }}</td>
+                <td>
+                    {% if request.user == i.user %}
+                        <a href="{% url 'instrument:delete' instrument.id i.id %}">取消</a>
+                    {% endif %}
+                </td>
+            </tr>
         {% endfor %}
     {% endif %}
+    </table>
+    <br/>
+    <a role="button" class="btn btn-default" href="{% url 'instrument:add' instrument.id %}">预约</a>
 {% endblock %}

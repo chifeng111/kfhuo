@@ -26,18 +26,20 @@
         </div>
 
         <div class="collapse navbar-collapse" id="navtop">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'instrument:list' %}">预约系统</a></li>
+            </ul>
 
-           <ul class="nav navbar-nav navbar-right">
-               <!--<li><a href="#">New blog</a></li>-->
-               <li>
-                   {% if request.user.is_active %}
-                       <p class="navbar-text">{{ user.username }}/<a href="{% url 'instrument:logo' %}">Logout</a> </p>
-                   {% else %}
-                       <p class="navbar-text"><a href="{% url 'instrument:register' %}">Register</a>/<a href="{% url 'instrument:logi' %}">Login</a></p>
-                   {% endif %}
-               </li>
-           </ul>
-
+            <ul class="nav navbar-nav navbar-right">
+                <!--<li><a href="#">New blog</a></li>-->
+                <li>
+                    {% if request.user.is_active %}
+                        <p class="navbar-text">{{ user.username }}/<a href="{% url 'instrument:logo' %}">Logout</a> </p>
+                    {% else %}
+                        <p class="navbar-text"><a href="{% url 'instrument:register' %}">Register</a>/<a href="{% url 'instrument:logi' %}">Login</a></p>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
 
     </div>

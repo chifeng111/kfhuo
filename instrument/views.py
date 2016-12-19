@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, Http404
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from .models import Instruments, Order
 from .forms import Logi_form, Register_form, Add_form
+import datetime
 
 # Create your views here.
 def index(request):
@@ -56,23 +57,54 @@ def register(request):
 
 def order(request, instrument_id):
     instrument = get_object_or_404(Instruments, id=instrument_id)
-    order = Order.objects.filter(instrument=instrument).order_by('time')
+    d = datetime.date.today()
+    order = Order.objects.filter(instrument=instrument, time__gte=d).order_by('time')
     content = {
         'order': order,
-        'instrument':instrument
+        'instrument': instrument
     }
     return render(request, 'order.html', content)
 
 def add(request, instrument_id):
+    if not request.user.is_active:
+        messages.error(request, '请先登录')
+        return redirect('instrument:logi')
     form = Add_form(request.POST)
     if form.is_valid():
         order_ = form.save(commit=False)
         order_.instrument = Instruments.objects.get(id=instrument_id)
         order_.user = request.user
-        order_.save()
-        return redirect('/instrument/%s' %instrument_id)
-
+        order_list = Order.objects.filter(instrument=instrument_id)
+        time_list = []
+        for o in order_list:
+            time_list.append(o.time)
+        if order_.time not in time_list:
+            if date_is_valid(order_.time):
+                order_.save()
+                messages.success(request, '预约成功')
+                return redirect('/instrument/%s' %instrument_id)
+            else:
+                messages.error(request, '超出预约范围')
+                return redirect('/instrument/%s' % instrument_id)
+        else:
+            messages.error(request, '该时间已被预约')
+            return redirect('/instrument/%s' % instrument_id)
     return render(request, 'add.html', {'form': form})
 
-def delete(request):
-    pass
+def delete(request, instrument_id, order_id):
+    order = get_object_or_404(Order,id=order_id)
+    if order.user != request.user:
+        raise Http404
+    order.delete()
+    messages.success(request, '删除成功！')
+    return redirect('/instrument/%s' % instrument_id)
+
+
+#设置预约范围，判断是否合法
+def date_is_valid(date):
+    d1 = datetime.date.today()
+    d2 = d1 + datetime.timedelta(days=15)
+    if date >= d1 and date < d2:
+        return True
+    else:
+        return False
