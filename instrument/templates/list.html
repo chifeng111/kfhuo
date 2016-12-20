@@ -7,4 +7,6 @@
     {% for i in instruments %}
         <h3><a href="{% url 'instrument:order' i.id %}">{{ i.name }}</a></h3>
     {% endfor %}
+    <br/>
+    <p>说明：管式炉1和管式炉2在物理间，管式炉3在徐娟办公室！</p>
 {% endblock %}
