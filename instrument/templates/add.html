@@ -5,6 +5,7 @@
 {% block body %}
     <form method="post">{% csrf_token %}
     {{ form.as_p }}
+        <p>提示：日期输入格式：y-m-d, 如：2017-1-1</p>
     <button type="submit">预订</button>
     </form>
 
