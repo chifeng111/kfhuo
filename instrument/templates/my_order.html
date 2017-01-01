@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}预约详情|{{ instrument.name }}{% endblock %}
+{% block title %}我的预约情况{% endblock %}
 
 {% block body %}
     <table class="table table-bordered">
@@ -10,15 +10,15 @@
         <th>仪器</th>
         <th>操作</th>
     </tr>
-    {% if order %}
-        {% for i in order %}
+    {% if my_order %}
+        {% for i in my_order %}
             <tr>
                 <td>{{ i.time }}</td>
                 <td>{{ i.user }}</td>
                 <td>{{ i.instrument }}</td>
                 <td>
                     {% if request.user == i.user %}
-                        <a href="{% url 'instrument:delete' instrument.id i.id %}">取消</a>
+                        <a href="{% url 'instrument:delete' i.instrument.id i.id %}">取消</a>
                     {% endif %}
                 </td>
             </tr>
@@ -26,6 +26,4 @@
     {% endif %}
     </table>
     <p>说明：管式炉1和管式炉2在物理间，管式炉3在娟姐办公室！</p>
-    <br/>
-    <a role="button" class="btn btn-default" href="{% url 'instrument:add' instrument.id %}">预约</a>
 {% endblock %}

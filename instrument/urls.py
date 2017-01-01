@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^(?P<instrument_id>[0-9]+)/$', views.order, name='order'),#预约详情
     url(r'^(?P<instrument_id>[0-9]+)/add/$', views.add, name='add'),#添加预约
     url(r'^(?P<instrument_id>[0-9]+)/(?P<order_id>[0-9]+)/$', views.delete, name='delete'),#删除预约
+    url(r'^my_order/$', views.my_order, name='my_order'),
 ]

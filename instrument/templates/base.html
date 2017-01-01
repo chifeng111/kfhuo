@@ -31,7 +31,9 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <!--<li><a href="#">New blog</a></li>-->
+                {% if request.user.is_active %}
+                <li><a href="{% url 'instrument:my_order' %}">我的预约</a></li>
+                {% endif %}
                 <li>
                     {% if request.user.is_active %}
                         <p class="navbar-text">{{ user.username }}/<a href="{% url 'instrument:logo' %}">Logout</a> </p>

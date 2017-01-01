@@ -99,6 +99,20 @@ def delete(request, instrument_id, order_id):
     messages.success(request, '删除成功！')
     return redirect('/instrument/%s' % instrument_id)
 
+def my_order(request):
+    if not request.user.is_active:
+        messages.error(request, '请先登录')
+        return redirect('instrument:logi')
+    d = datetime.date.today()
+    user=request.user
+    ord = Order.objects.filter(user=user, time__gte=d).order_by('time')
+    print(ord)
+    content = {
+        'my_order': ord,
+    }
+    return render(request, 'my_order.html', content)
+
+
 
 #设置预约范围，判断是否合法
 def date_is_valid(date):
