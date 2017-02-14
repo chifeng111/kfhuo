@@ -4,6 +4,8 @@
 
 需要注册，登录后使用。用于预约，查看，取消等操作。
 
+项目演示地址（腾讯云）：http://119.29.16.160/
+
 网页预览如下：
 ![image](https://github.com/chifeng111/Hello-World-HTML/raw/master/kfhuo_img/1.jpg)
 
