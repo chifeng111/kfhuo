@@ -7,6 +7,8 @@
 网页预览如下：
 ![image](https://github.com/chifeng111/Hello-World-HTML/raw/master/kfhuo_img/1.jpg)
 
+仪器列表：
+![image](https://github.com/chifeng111/Hello-World-HTML/raw/master/kfhuo_img/3.jpg)
 
 预约及查看：
 ![image](https://github.com/chifeng111/Hello-World-HTML/raw/master/kfhuo_img/2.jpg)
